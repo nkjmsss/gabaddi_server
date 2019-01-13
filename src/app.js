@@ -12,15 +12,18 @@ app.set('view engine', 'pug')
 
 http.listen(port, '0.0.0.0', () => {
   const ifaces = os.networkInterfaces()
+  let network = void 0
+
   Object.keys(ifaces).forEach(ifname => {
     ifaces[ifname].forEach(iface => {
       if ('IPv4' !== iface.family || iface.internal !== false) return
 
-      const network = iface.address
-      console.log(`local: http://localhost:${port}`)
-      console.log(`external: http://${network}:${port}`)
+      network = iface.address
     })
   })
+
+  console.log(`local: http://localhost:${port}`)
+  if (network) console.log(`external: http://${network}:${port}`)
 })
 
 // assets
