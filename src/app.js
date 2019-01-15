@@ -5,6 +5,10 @@ const http = require('http').Server(app)
 const port = process.env.PORT || 3000
 const io = require('socket.io')(http)
 const os = require('os')
+const cors = require('cors')
+
+// Accept Cross Origin Resource Sharing
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
